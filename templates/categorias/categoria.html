@@ -1,0 +1,18 @@
+{% extends "partials/base.html" %}
+
+{% block content %}
+      <section class="produtos">
+        <h2 class="titulo">{{ categoria }}</h2>
+      </section>
+      <section class="cards_container">
+        <section class="cardsSection1">
+        {% for produto in produtos %}
+          <div class="cards">
+              <img src="{{ produto.imagem }}" class="imagem2">
+              <p class="dg">{{ produto.nome }}</p>
+              <a href="/add_to_cart/{{ produto.id }}" class="ancor">Alugar</a>
+          </div>
+        {% endfor %}
+        </section>
+    </section>
+{% endblock %}
