@@ -2,13 +2,22 @@ from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-from app.routers import auth, users, cart, products
+from app.routers import users, cart, products, categories
 from pathlib import Path
-
-#from .database import init_db
-from .routers import auth, users, cart, products, categories
+import logging
 
 app = FastAPI()
+
+logging.basicConfig(
+    level=logging.DEBUG,
+    format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
+    handlers=[
+        logging.FileHandler("app.log"),
+        logging.StreamHandler()
+    ]
+)
+
+logger = logging.getLogger(__name__)
 
 static_files_path = Path(__file__).parent / "static"
 app.mount("/static", StaticFiles(directory="static"), name="static")
@@ -23,7 +32,7 @@ templates = Jinja2Templates(directory="templates")
 def read_root(request: Request):
     return templates.TemplateResponse("categorias/index.html", {"request": request})
 
-app.include_router(products.router, prefix="/products", tags=["products"])
+app.include_router(products.router, prefix="/produtos", tags=["products"])
 app.include_router(categories.router, prefix="/categories", tags=["categories"])
 app.include_router(users.router, prefix="/users", tags=["users"])
 

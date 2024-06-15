@@ -1,5 +1,7 @@
 from sqlalchemy.orm import Session
 from . import models, schemas
+import shutil
+from fastapi import UploadFile
 
 # Funções CRUD para o modelo Produto
 
@@ -9,8 +11,16 @@ def get_produto(db: Session, produto_id: int):
 def get_produtos(db: Session, skip: int = 0, limit: int = 10):
     return db.query(models.Produto).offset(skip).limit(limit).all()
 
-def create_produto(db: Session, produto: schemas.ProdutoCreate):
+
+def create_produto(db: Session, produto: schemas.ProdutoCreate, imagem: UploadFile = None):
     db_produto = models.Produto(**produto.dict())
+    
+    if imagem:
+        file_location = f"static/images/{imagem.filename}"
+        with open(file_location, "wb+") as file_object:
+            shutil.copyfileobj(imagem.file, file_object)
+        db_produto.imagem = file_location
+
     db.add(db_produto)
     db.commit()
     db.refresh(db_produto)

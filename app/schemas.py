@@ -1,6 +1,24 @@
 from pydantic import BaseModel
 from typing import List, Optional
 from datetime import date
+from enum import Enum
+
+class Categoria(str, Enum):
+    PRATO_RASO = "Prato Raso"
+    GUARDANAPO = "Guardanapo"
+    TALHER = "Talher"
+    TACAS = "Tacas"
+    TRILHOS_DE_MESA = "Trilhos de Mesa"
+    SOUSPLAT = "Sousplat"
+    JOGO_AMERICANO = "Jogo Americano"
+    CHA_E_CAFE = "Cha e Cafe"
+    PRATO_SOBREMESA = "Prato Sobremesa"
+    PORTA_GUARDANAPO = "Porta Guardanapo"
+
+class Estilo(str, Enum):
+    ELEGANTE = "Elegante"
+    TROPICAL = "Tropical"
+    FLORIDO = "Florido"
 
 class ProdutoBase(BaseModel):
     nome: str
