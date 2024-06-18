@@ -64,3 +64,12 @@ class Aluguel(Base):
 
     def __repr__(self):
         return f"<Aluguel(cliente_cpf='{self.cliente_cpf}', data_aluguel='{self.data_aluguel}', data_devolucao='{self.data_devolucao}', preco_total={self.preco_total})>"
+
+class ItemCarrinho(Base):
+    __tablename__ = 'itemCarrinho'
+
+    id = Column(Integer, primary_key=True, index=True)
+    produto_id = Column(Integer, ForeignKey('produto.id'))
+    quantidade = Column(Integer, nullable=False)
+
+    produto = relationship("Produto")

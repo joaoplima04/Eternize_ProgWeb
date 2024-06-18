@@ -4,7 +4,7 @@
     <nav class="row align-items-center">
       <div class="col-3">
         <a href="/">
-          <img src='static/images/logo.png' class="logo img-fluid">
+          <img src="{{url_for('static', path='/images/logo.png')}}" class="logo img-fluid">
         </a>
       </div>
       <div class="col-6">
@@ -33,7 +33,7 @@
           <a href="" class="btn btn-outline-primary">
             <span class="material-symbols-outlined">person</span> Conta
           </a>
-          <a href="/carrinho" class="btn btn-outline-primary">
+          <a href="cart/" class="btn btn-outline-primary">
             <span class="material-symbols-outlined">shopping_cart</span> Carrinho
           </a>
         </div>

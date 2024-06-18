@@ -35,9 +35,9 @@ def read_root(request: Request):
 app.include_router(products.router, prefix="/produtos", tags=["products"])
 app.include_router(categories.router, prefix="/categories", tags=["categories"])
 app.include_router(users.router, prefix="/users", tags=["users"])
+app.include_router(cart.router, prefix="/cart", tags=["cart"])
 
 '''
 # Include routers for different modules
 app.include_router(auth.router, prefix="/auth", tags=["auth"])
-app.include_router(cart.router, prefix="/cart", tags=["cart"])
 '''
