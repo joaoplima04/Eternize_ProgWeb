@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException, Request
-from fastapi.responses import HTMLResponse, RedirectResponse, Response
+from fastapi.responses import HTMLResponse, RedirectResponse, Response, JSONResponse
 from sqlalchemy.orm import Session
 from ..database import get_db
 from ..models import Produto, ItemCarrinho
@@ -28,7 +28,9 @@ def add_to_cart_endpoint(produto_id: int, db: Session = Depends(get_db)):
         new_item = ItemCarrinho(produto_id=produto_id, quantidade=1)
         db.add(new_item)
     db.commit()
-    return {"message": "Produto adicionado ao carrinho"}
+    
+    # Após o commit, redireciona para a rota do carrinho
+    return RedirectResponse(url="/cart")
 
 # Remover do carrinho
 @router.post("/remove_from_cart/{produto_id}/")

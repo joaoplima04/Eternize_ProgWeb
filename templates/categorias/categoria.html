@@ -10,7 +10,7 @@
         <div class="cards">
             <img src="{{ url_for('static', path=produto.imagem) }}" class="imagem2">
             <p class="dg">{{ produto.nome }}</p>
-            <button class="btn btn-primary" onclick="addToCart('{{ produto.id }}')">Alugar</button>
+            <a href="#" class="ancor" onclick="event.preventDefault(); addToCart({{ produto.id }});">Alugar</a>
         </div>
         {% endfor %}
     </section>
@@ -23,7 +23,7 @@
 
 <script>
 function addToCart(produtoId) {
-    fetch(`/add_to_cart/${produtoId}/`, {
+    fetch(`/cart/add_to_cart/${produtoId}/`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
