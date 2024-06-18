@@ -1,9 +1,0 @@
-curl --location 'http://127.0.0.1:8000/produtos/' \
---form 'nome="Prato Raso Flowers Neomint"' \
---form 'categoria="PRATO_RASO"' \
---form 'preco="5.0"' \
---form 'quantidade_estoque="50"' \
---form 'cor="Verde"' \
---form 'estilo="ELEGANTE"' \
---form 'publicado="true"' \
---form 'imagem=@DurLZiw7k/prato_flowers_neo_mint.png'

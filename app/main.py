@@ -5,6 +5,7 @@ from fastapi.templating import Jinja2Templates
 from app.routers import users, cart, products, categories
 from pathlib import Path
 import logging
+from .config import templates
 
 app = FastAPI()
 
@@ -21,7 +22,6 @@ logger = logging.getLogger(__name__)
 
 static_files_path = Path(__file__).parent / "static"
 app.mount("/static", StaticFiles(directory="static"), name="static")
-templates = Jinja2Templates(directory="templates")
 
 # Create the database tables
 #@app.on_event("startup")

@@ -1,86 +1,66 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <html lang="PT-BR">
-    <title>Eternize</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <link rel="stylesheet" href='/static/styles/style.css'>
-  </head>
-  <body>
-    <header>
-      {% include "partials/header.html" %}
-    </header>
-    <main>
-      <section class="produtos">
-        <h2 class="titulo">Alugue os mais elegantes itens de mesa posta!</h2>
-        <h2 class="titulo">Produtos</h2>
-      </section>
-      <section class="cards_container">
-        <section class="cardsSection1">
-          <a target="_blank" href="" class="ancor">
-          <div class=cards>
-            <img src='/static/images/guardanapos.png' class="imagem">
-            <p class="dg">Guardanapos</p>
-          </div>
-          </a>
-          <a target="_blank" href="" class="ancor">
-          <div class=cards>
-            <img src='/static/images/sousplats.png' class="imagem">
-            <p class="dg">Sousplats</p>
-          </div>
-          </a>
-          <a target="_blank" href="" class="ancor">
-          <div class=cards>
-            <img src='/static/images/jogos_americanos.png' class="imagem">
-            <p class="dg">Jogos americanos</p>
-          </div>
-          </a>
-          <a target="_blank" href="" class="ancor">
-          <div class=cards>
-            <img src='/static/images/pratos.png' class="imagem">
-            <p class="dg">Pratos Rasos</p>
-          </div>
-          </a>
-          <a target="_blank" href="" class="ancor">
-          <div class=cards>
-            <img src='/static/images/porta_guardanapos.png' class="imagem">
-            <p class="dg">Porta guardanapos</p>
-          </div>
-          </a>
-          <a target="_blank" href=""class="ancor">
-          <div class=cards>
-            <img src='/static/images/tacas.png' class="imagem">
-            <p class="dg">Taças</p>
-          </div>
-          </a>
-          <a target="_blank" href=""class="ancor">
-          <div class=cards>
-            <img src='/static/images/talheres.png' class="imagem">
-            <p class="dg">Talheres</p>
-          </div>
-          </a>
-          <a target="_blank" href="" class="ancor">
-          <div class=cards>
-            <img src='/static/images/trilhos.png' class="imagem">
-            <p class="dg">Trilhos de Mesa</p>
-          </div>
-          </a>
-          <a target="_blank" href="" class="ancor">
-          <div class=cards>
-            <img src='/static/images/cafedatarde.png' class="imagem">
-            <p class="dg">Café e Chá da Tarde</p>
-          </div>
-          </a>
-        </section>
-      </section>
-    </main>
-    <footer>
-      <a href="https://api.whatsapp.com/send?phone=5561991758630&amp;text=Olá! gostaria de mais informações sobre seus produtos." class="float-whatsapp" target="_blank"><i class="fa fa-whatsapp my-float"></i></a>
-        <p>Eternize Locação, todos os direitos reservados.</p>
-    </footer>
-  </body>
-</html>
+{% extends "partials/base.html" %}
+
+{% block content %}
+  <section class="produtos">
+    <h2 class="titulo">Alugue os mais elegantes itens de mesa posta!</h2>
+    <h2 class="titulo">Produtos</h2>
+  </section>
+  <section class="cards_container">
+    <section class="cardsSection1">
+      <a target="_blank" href="/categories/categoria/GUARDANAPO" class="ancor">
+      <div class=cards>
+        <img src='/static/images/guardanapos.png' class="imagem">
+        <p class="dg">Guardanapos</p>
+      </div>
+      </a>
+      <a target="_blank" href="/categoria/SOUSPLAT" class="ancor">
+      <div class=cards>
+        <img src='/static/images/sousplats.png' class="imagem">
+        <p class="dg">Sousplats</p>
+      </div>
+      </a>
+      <a target="_blank" href="/categoria/JOGO_AMERICANO" class="ancor">
+      <div class=cards>
+        <img src='/static/images/jogos_americanos.png' class="imagem">
+        <p class="dg">Jogos americanos</p>
+      </div>
+      </a>
+      <a target="_blank" href="/categoria/PRATO_RASO" class="ancor">
+      <div class=cards>
+        <img src='/static/images/pratos.png' class="imagem">
+        <p class="dg">Pratos Rasos</p>
+      </div>
+      </a>
+      <a target="_blank" href="" class="ancor">
+      <div class=cards>
+        <img src='/static/images/porta_guardanapos.png' class="imagem">
+        <p class="dg">Porta guardanapos</p>
+      </div>
+      </a>
+      <a target="_blank" href=""class="ancor">
+      <div class=cards>
+        <img src='/static/images/tacas.png' class="imagem">
+        <p class="dg">Taças</p>
+      </div>
+      </a>
+      <a target="_blank" href=""class="ancor">
+      <div class=cards>
+        <img src='/static/images/talheres.png' class="imagem">
+        <p class="dg">Talheres</p>
+      </div>
+      </a>
+      <a target="_blank" href="" class="ancor">
+      <div class=cards>
+        <img src='/static/images/trilhos.png' class="imagem">
+        <p class="dg">Trilhos de Mesa</p>
+      </div>
+      </a>
+      <a target="_blank" href="" class="ancor">
+      <div class=cards>
+        <img src='/static/images/cafedatarde.png' class="imagem">
+        <p class="dg">Café e Chá da Tarde</p>
+      </div>
+      </a>
+    </section>
+  </section>
+{% endblock %}
