@@ -2,6 +2,7 @@ from sqlalchemy.orm import Session
 from . import models, schemas
 import shutil
 from fastapi import UploadFile
+from .auth import get_password_hash
 
 # Funções CRUD para o modelo Produto
 
@@ -28,14 +29,24 @@ def create_produto(db: Session, produto: schemas.ProdutoCreate, imagem: UploadFi
 
 # Funções CRUD para o modelo Cliente
 
-def get_cliente(db: Session, cliente_cpf: str):
-    return db.query(models.Cliente).filter(models.Cliente.cpf == cliente_cpf).first()
+def get_cliente(db: Session, cliente_email: str):
+    return db.query(models.Cliente).filter(models.Cliente.email == cliente_email).first()
 
 def get_clientes(db: Session, skip: int = 0, limit: int = 10):
     return db.query(models.Cliente).offset(skip).limit(limit).all()
 
 def create_cliente(db: Session, cliente: schemas.ClienteCreate):
-    db_cliente = models.Cliente(**cliente.dict())
+    # Hashear a senha antes de salvar
+    hashed_password = get_password_hash(cliente.password)
+    db_cliente = models.Cliente(
+        cpf=cliente.cpf,
+        username=cliente.username,
+        nome=cliente.nome,
+        email=cliente.email,
+        telefone=cliente.telefone,
+        data_nascimento=cliente.data_nascimento,
+        password=hashed_password  # Armazenar a senha hasheada
+    )
     db.add(db_cliente)
     db.commit()
     db.refresh(db_cliente)

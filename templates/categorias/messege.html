@@ -1,0 +1,11 @@
+{% extends "partials/base.html" %}
+
+{% block title %}Mensagem{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="alert alert-info">
+        {{ message }} <a href="{{ url_for('logout') }}" class="alert-link">Fazer logoff</a>
+    </div>
+</div>
+{% endblock %}

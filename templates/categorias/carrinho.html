@@ -16,13 +16,11 @@
             <p class="card-text">R$ {{ item.produto.preco }}</p>
             <div class="mt-auto">
               <div class="d-flex justify-content-between align-items-center mb-2">
-                <form action="{{ url_for('update_quantity_endpoint', produto_id=item.produto.id) }}" method="post" class="d-inline-flex align-items-center">
-                  <button type="button" class="btn btn-sm btn-outline-secondary" onclick="decrementQuantity(this)">-</button>
-                  <input type="number" name="quantity" value="{{ item.quantidade }}" min="1" class="form-control form-control-sm mx-2 text-center" style="width: 60px;">
-                  <button type="button" class="btn btn-sm btn-outline-secondary" onclick="incrementQuantity(this)">+</button>
+                <form onsubmit="event.preventDefault(); updateQuantity({{ item.produto.id }});" class="d-inline-flex align-items-center">
+                  <input type="number" id="quantity-{{ item.produto.id }}" name="quantity" value="{{ item.quantidade }}" min="1" class="form-control form-control-sm mx-2 text-center" style="width: 60px;">
                   <button type="submit" class="btn btn-sm btn-outline-primary ml-2">Atualizar</button>
                 </form>
-                <form action="{{ url_for('remove_from_cart_endpoint', produto_id=item.produto.id) }}" method="post" class="d-inline">
+                <form onsubmit="event.preventDefault(); RemoveFromCart({{ item.produto.id }});" method="post" class="d-inline">
                   <button type="submit" class="btn btn-sm btn-outline-danger">Remover</button>
                 </form>
               </div>
@@ -32,10 +30,9 @@
       </div>
       {% endfor %}
     </div>
-
     <div class="row mt-4">
       <div class="col-md-12">
-        <h4 class="text-right">Total: R$ {{ cart_total }}</h4>
+        <h4 class="text-right">Total: R$ <span id="cart-total">{{ cart_total }}</span></h4>
       </div>
     </div>
 
@@ -51,4 +48,70 @@
     </div>
   {% endif %}
 </div>
+<script>
+  function updateQuantity(produtoId) {
+    const quantityInput = document.getElementById(`quantity-${produtoId}`);
+    const quantity = quantityInput.value;
+
+    fetch(`/cart/update_quantity/${produtoId}/${quantity}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    })
+    .then(response => {
+        if (response.ok) {
+            console.log("Quantity updated successfully");
+            // Optionally, you can show a success message or reload the page
+            updateCartTotal();
+        } else {
+            console.error("Failed to update quantity");
+        }
+    })
+    .catch(error => {
+        console.error("Error:", error);
+    });
+  }
+
+  function RemoveFromCart(produtoId) {
+    fetch(`/cart/remove_from_cart/${produtoId}`, {
+      method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    })
+    .then(response => {
+      if (response.ok) {
+          console.log("Product removed successfully");
+          // Optionally, you can show a success message or reload the page
+          updateCartItems();
+      } else {
+          console.error("Failed to remove quantity");
+      }
+    })
+    .catch(error => {
+        console.error("Error:", error);
+    });
+  }
+
+  function updateCartTotal() {
+    fetch(`/cart/cart_total/`)
+    .then(response => response.json())
+    .then(data => {
+        const cartTotalElement = document.getElementById('cart-total');
+        cartTotalElement.textContent = data.cart_total.toFixed(2); // Exibe o total com duas casas decimais
+    })
+    .catch(error => {
+        console.error("Error fetching cart total:", error);
+    });
+  }
+
+  function updateCartItems() {
+    fetch("/cart/")
+}
+
+  // Chama updateCartTotal inicialmente para carregar o total do carrinho ao carregar a página
+  updateCartItems();
+  updateCartTotal();
+</script>
 {% endblock %}

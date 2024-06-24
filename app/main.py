@@ -30,7 +30,11 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 
 @app.get("/", response_class=HTMLResponse)
 def read_root(request: Request):
-    return templates.TemplateResponse("categorias/index.html", {"request": request})
+    welcome_message = request.cookies.get("welcome_message")
+    context = {"request": request}
+    if welcome_message:
+        context["welcome_message"] = welcome_message
+    return templates.TemplateResponse("categorias/index.html", context)
 
 app.include_router(products.router, prefix="/produtos", tags=["products"])
 app.include_router(categories.router, prefix="/categories", tags=["categories"])

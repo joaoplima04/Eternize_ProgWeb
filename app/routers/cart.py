@@ -11,8 +11,7 @@ router = APIRouter()
 @router.get("/", response_class=HTMLResponse)
 def cart_view(request: Request, db: Session = Depends(get_db)):
     cart_items = db.query(ItemCarrinho).all()
-    cart_total_price = sum(item.produto.preco * item.quantidade for item in cart_items)
-    return templates.TemplateResponse("categorias/carrinho.html", {"request": request, "cart_items": cart_items, "cart_total": cart_total_price})
+    return templates.TemplateResponse("categorias/carrinho.html", {"request": request, "cart_items": cart_items})
 
 # Adicionar ao carrinho
 @router.post("/add_to_cart/{produto_id}/")
@@ -29,8 +28,7 @@ def add_to_cart_endpoint(produto_id: int, db: Session = Depends(get_db)):
         db.add(new_item)
     db.commit()
     
-    # Após o commit, redireciona para a rota do carrinho
-    return RedirectResponse(url="/cart")
+    return Response(status_code=200)
 
 # Remover do carrinho
 @router.post("/remove_from_cart/{produto_id}/")
@@ -41,10 +39,16 @@ def remove_from_cart_endpoint(produto_id: int, db: Session = Depends(get_db)):
 
     db.delete(item_carrinho)
     db.commit()
-    return {"message": "Produto removido do carrinho"}
+    return Response(status_code=200)
+
+@router.get("/cart_total/")
+def get_cart_total(db: Session = Depends(get_db)):
+    cart_items = db.query(ItemCarrinho).filter_by().all()
+    cart_total = sum(item.produto.preco * item.quantidade for item in cart_items)
+    return {"cart_total": cart_total}
 
 # Atualizar quantidade
-@router.post("/update_quantity/{produto_id}/")
+@router.post("/update_quantity/{produto_id}/{quantity}")
 def update_quantity_endpoint(produto_id: int, quantity: int, db: Session = Depends(get_db)):
     item_carrinho = db.query(ItemCarrinho).filter(ItemCarrinho.produto_id == produto_id).first()
     if not item_carrinho:
@@ -56,4 +60,4 @@ def update_quantity_endpoint(produto_id: int, quantity: int, db: Session = Depen
         item_carrinho.quantidade = quantity
 
     db.commit()
-    return {"message": "Quantidade do produto atualizada"}
+    return Response(status_code=200)

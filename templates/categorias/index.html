@@ -2,6 +2,11 @@
 
 {% block content %}
   <section class="produtos">
+    {% if welcome_message %}
+    <div class="alert alert-success" role="alert">
+        {{ welcome_message }}
+    </div>
+    {% endif %}
     <h2 class="titulo">Alugue os mais elegantes itens de mesa posta!</h2>
     <h2 class="titulo">Produtos</h2>
   </section>

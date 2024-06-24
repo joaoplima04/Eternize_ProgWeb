@@ -97,6 +97,16 @@ a {
   margin: 0 auto;
 }
 
+.custom-width {
+  width: 200px;
+}
+
+.container {
+  color: #2a5a86;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
 .cardsSection1 {
   display: flex;
   flex-wrap: wrap;

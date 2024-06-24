@@ -41,7 +41,7 @@ class Produto(Base):
 class Cliente(Base):
     __tablename__ = 'cliente'
 
-    cpf = Column(String(11), primary_key=True)
+    cpf = Column(String(14), primary_key=True)
     username = Column(String(150), unique=True)
     nome = Column(String(100))
     email = Column(String(255), unique=True)
